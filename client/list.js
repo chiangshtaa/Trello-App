@@ -24,9 +24,15 @@ class List extends React.Component {
     }
   }
 
+  onDragOver(e) {
+    e.preventDefault();
+    console.log('dragOver works');
+  }
+
   render() {
     return (
-      <div className='list-group'>
+      <div className='list-group'
+            onDragOver={(e) => this.onDragOver(e)}>
         <div className='header'>
           {this.props.name}
         </div>

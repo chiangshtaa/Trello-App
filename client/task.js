@@ -5,27 +5,16 @@ class Task extends React.Component {
     super(props);
   }
 
-  // handleTaskMoveForward(task) {
-  //   this.props.handleTaskMoveForward(task);
-  // }
-
-  // handleTaskMoveBackward(task) {
-  //   this.props.handleTaskMoveBackward(task);
-  // }
-
+  onDragStart(e) {
+    console.log('drag works');
+  }
 
   render() {
     return (
-      <div className='item'>
+      <div className='item'
+            draggable
+            onDragStart={(e) => this.onDragStart(e)}>
         {this.props.task}
-        <button 
-          // id='forwardButton' 
-          // onClick={(task) => this.handleTaskMoveForward(this.props.task)}
-        />
-        <button 
-          // id='backwardButton' 
-          // onClick={(task) => this.handleTaskMoveBackward(this.props.task)}
-        />
       </div>
     )
   }

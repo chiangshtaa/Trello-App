@@ -5,13 +5,13 @@ class Task extends React.Component {
     super(props);
   }
 
-  handleTaskMoveForward(task) {
-    this.props.handleTaskMoveForward(task);
-  }
+  // handleTaskMoveForward(task) {
+  //   this.props.handleTaskMoveForward(task);
+  // }
 
-  handleTaskMoveBackward(task) {
-    this.props.handleTaskMoveBackward(task);
-  }
+  // handleTaskMoveBackward(task) {
+  //   this.props.handleTaskMoveBackward(task);
+  // }
 
 
   render() {
@@ -19,12 +19,12 @@ class Task extends React.Component {
       <div className='item'>
         {this.props.task}
         <button 
-          id='forwardButton' 
-          onClick={(task) => this.handleTaskMoveForward(this.props.task)}
+          // id='forwardButton' 
+          // onClick={(task) => this.handleTaskMoveForward(this.props.task)}
         />
         <button 
-          id='backwardButton' 
-          onClick={(task) => this.handleTaskMoveBackward(this.props.task)}
+          // id='backwardButton' 
+          // onClick={(task) => this.handleTaskMoveBackward(this.props.task)}
         />
       </div>
     )

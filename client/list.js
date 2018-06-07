@@ -24,42 +24,42 @@ class List extends React.Component {
     }
   }
 
-  handleTaskMoveForward(task, list) {
-    this.props.handleTaskMoveForward(task, list);
-  }
+  // handleTaskMoveForward(task, list) {
+  //   this.props.handleTaskMoveForward(task, list);
+  // }
 
-  handleTaskMoveBackward(task, list) {
-    this.props.handleTaskMoveBackward(task, list);
-  }
+  // handleTaskMoveBackward(task, list) {
+  //   this.props.handleTaskMoveBackward(task, list);
+  // }
 
-  handleListMoveForward(list) {
-    this.props.handleListMoveForward(list);
-  }
+  // handleListMoveForward(list) {
+  //   this.props.handleListMoveForward(list);
+  // }
 
-  handleListMoveBackward(list) {
-    this.props.handleListMoveBackward(list);
-  }
+  // handleListMoveBackward(list) {
+  //   this.props.handleListMoveBackward(list);
+  // }
 
   render() {
     return (
       <div className='list-group'>
         <div className='header'>{this.props.name}
-          <button
-            id='forwardButton'
-            onClick={(list) => this.handleListMoveForward(this.props.name)}
-          />
-          <button
-            id='backwardButton'
-            onClick={(list) => this.handleListMoveBackward(this.props.name)}
-          />
+          // <button
+          //   id='forwardButton'
+          //   onClick={(list) => this.handleListMoveForward(this.props.name)}
+          // />
+          // <button
+          //   id='backwardButton'
+          //   onClick={(list) => this.handleListMoveBackward(this.props.name)}
+          // />
         </div>
         {this.props.tasks.map((task, index) => {
           return (
             <Task 
               task={task} 
               key={index} 
-              handleTaskMoveForward={(task, list) => this.handleTaskMoveForward(task, this.props.name)}
-              handleTaskMoveBackward={(task, list) => this.handleTaskMoveBackward(task, this.props.name)}
+              // handleTaskMoveForward={(task, list) => this.handleTaskMoveForward(task, this.props.name)}
+              // handleTaskMoveBackward={(task, list) => this.handleTaskMoveBackward(task, this.props.name)}
             />
           )
         })}

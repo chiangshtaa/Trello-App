@@ -109,6 +109,26 @@ class App extends React.Component {
   //   this.setState(this.state);
   // }
 
+  updateTasks(taskName, list) {
+    console.log('update task', taskName);
+    let lists = this.state.lists.slice();
+    for (let i = 0; i < lists.length; i++) {
+      for (let j = 0; j < lists[i].tasks.length; j++) {
+        if (lists[i].tasks[j] === taskName) {
+          lists[i].tasks.splice(j, 1);
+        }
+      }
+    }
+    for (let i = 0; i < lists.length; i++) {
+      if (lists[i].name === list) {
+        lists[i].tasks.push(taskName);
+      }
+    }
+    this.setState({           
+      lists: lists   
+    });
+  }
+
   render() {
     return (
       <div className='main'>
@@ -118,6 +138,7 @@ class App extends React.Component {
             name={list.name} 
             tasks={list.tasks} 
             key={index} 
+            updateTasks={(taskName, list) => this.updateTasks(taskName, list)}
             // handleTaskMoveForward={(task, list) => this.handleTaskMoveForward(task, list)}
             // handleTaskMoveBackward={(task, list) => this.handleTaskMoveBackward(task, list)}
             // handleListMoveForward={(list) => this.handleListMoveForward(list)}
@@ -137,3 +158,4 @@ class App extends React.Component {
 }
 
 module.exports = App;
+

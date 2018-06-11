@@ -49,64 +49,84 @@ class App extends React.Component {
     }
   }
 
-  handleTaskMoveForward(task, list) {
-    console.log('Forward goes all the way back to root App', task, list);
-    for (let i = 0; i < this.state.lists.length; i++) {
-      if (this.state.lists[i].name === list) {
-        let index = this.state.lists[i].tasks.indexOf(task);
-        if (i !== this.state.lists.length - 1) {
-          let moved = this.state.lists[i].tasks.splice(index, 1);
-          this.state.lists[i + 1].tasks.push(moved);
-          break;
-        } else {
-          alert('Task already at the end of the line!');
+  // handleTaskMoveForward(task, list) {
+  //   console.log('Forward goes all the way back to root App', task, list);
+  //   for (let i = 0; i < this.state.lists.length; i++) {
+  //     if (this.state.lists[i].name === list) {
+  //       let index = this.state.lists[i].tasks.indexOf(task);
+  //       if (i !== this.state.lists.length - 1) {
+  //         let moved = this.state.lists[i].tasks.splice(index, 1);
+  //         this.state.lists[i + 1].tasks.push(moved);
+  //         break;
+  //       } else {
+  //         alert('Task already at the end of the line!');
+  //       }
+  //     }
+  //   }
+  //   this.setState(this.state);
+  // }
+
+  // handleTaskMoveBackward(task, list) {
+  //   console.log('Back goes all the way back to root App', task, list);
+  //   for (let i = 0; i < this.state.lists.length; i++) {
+  //     if (this.state.lists[i].name === list) {
+  //       let index = this.state.lists[i].tasks.indexOf(task);
+  //       if (i !== 0) {
+  //         let moved = this.state.lists[i].tasks.splice(index, 1);
+  //         this.state.lists[i - 1].tasks.push(moved);
+  //         break;
+  //       } else {
+  //         alert('Task needs to be done!');
+  //       }
+  //     }
+  //   }
+  //   this.setState(this.state);
+  // }
+
+  // handleListMoveForward(list) {
+  //   console.log('here forward', list);
+  //   for (let i = 0; i < this.state.lists.length; i++) {
+  //     if (this.state.lists[i].name === list && i !== this.state.lists.length - 1) {
+  //       let temp = this.state.lists[i + 1];
+  //       this.state.lists[i + 1] = this.state.lists[i];
+  //       this.state.lists[i] = temp;
+  //       break;
+  //     }
+  //   }
+  //   this.setState(this.state);
+  // }
+
+  // handleListMoveBackward(list) {
+  //   console.log('backward', list);
+  //   for (let i = 0; i < this.state.lists.length; i++) {
+  //     if (this.state.lists[i].name === list && i !== 0) {
+  //       let temp = this.state.lists[i - 1];
+  //       this.state.lists[i - 1] = this.state.lists[i];
+  //       this.state.lists[i] = temp;
+  //       break;
+  //     }
+  //   }
+  //   this.setState(this.state);
+  // }
+
+  updateTasks(taskName, list) {
+    console.log('update task', taskName);
+    let lists = this.state.lists.slice();
+    for (let i = 0; i < lists.length; i++) {
+      for (let j = 0; j < lists[i].tasks.length; j++) {
+        if (lists[i].tasks[j] === taskName) {
+          lists[i].tasks.splice(j, 1);
         }
       }
     }
-    this.setState(this.state);
-  }
-
-  handleTaskMoveBackward(task, list) {
-    console.log('Back goes all the way back to root App', task, list);
-    for (let i = 0; i < this.state.lists.length; i++) {
-      if (this.state.lists[i].name === list) {
-        let index = this.state.lists[i].tasks.indexOf(task);
-        if (i !== 0) {
-          let moved = this.state.lists[i].tasks.splice(index, 1);
-          this.state.lists[i - 1].tasks.push(moved);
-          break;
-        } else {
-          alert('Task needs to be done!');
-        }
+    for (let i = 0; i < lists.length; i++) {
+      if (lists[i].name === list) {
+        lists[i].tasks.push(taskName);
       }
     }
-    this.setState(this.state);
-  }
-
-  handleListMoveForward(list) {
-    console.log('here forward', list);
-    for (let i = 0; i < this.state.lists.length; i++) {
-      if (this.state.lists[i].name === list && i !== this.state.lists.length - 1) {
-        let temp = this.state.lists[i + 1];
-        this.state.lists[i + 1] = this.state.lists[i];
-        this.state.lists[i] = temp;
-        break;
-      }
-    }
-    this.setState(this.state);
-  }
-
-  handleListMoveBackward(list) {
-    console.log('backward', list);
-    for (let i = 0; i < this.state.lists.length; i++) {
-      if (this.state.lists[i].name === list && i !== 0) {
-        let temp = this.state.lists[i - 1];
-        this.state.lists[i - 1] = this.state.lists[i];
-        this.state.lists[i] = temp;
-        break;
-      }
-    }
-    this.setState(this.state);
+    this.setState({           
+      lists: lists   
+    });
   }
 
   render() {
@@ -118,10 +138,11 @@ class App extends React.Component {
             name={list.name} 
             tasks={list.tasks} 
             key={index} 
-            handleTaskMoveForward={(task, list) => this.handleTaskMoveForward(task, list)}
-            handleTaskMoveBackward={(task, list) => this.handleTaskMoveBackward(task, list)}
-            handleListMoveForward={(list) => this.handleListMoveForward(list)}
-            handleListMoveBackward={(list) => this.handleListMoveBackward(list)}
+            updateTasks={(taskName, list) => this.updateTasks(taskName, list)}
+            // handleTaskMoveForward={(task, list) => this.handleTaskMoveForward(task, list)}
+            // handleTaskMoveBackward={(task, list) => this.handleTaskMoveBackward(task, list)}
+            // handleListMoveForward={(list) => this.handleListMoveForward(list)}
+            // handleListMoveBackward={(list) => this.handleListMoveBackward(list)}
           />
         )
       })}
@@ -137,3 +158,4 @@ class App extends React.Component {
 }
 
 module.exports = App;
+

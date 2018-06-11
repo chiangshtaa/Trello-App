@@ -56,7 +56,7 @@ body {
 
 #addCard {
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
   margin-right: 10px;
   background-color: #cecccc;
   color: black;
@@ -73,7 +73,7 @@ button {
   float: right;
 }
 
-#backwardButton {
+/*#backwardButton {
   background-image: url('./backwardArrow.png');
   margin-right: 2px;
   background-size: 100% 100%;
@@ -82,8 +82,22 @@ button {
 #forwardButton {
   background-image: url('./forwardArrow.png');
   background-size: 100% 100%;
+}*/
+
+.hold {
+  border: solid 3px #5ff700;
+  border-radius: 10px;
 }
 
+.hovered {
+  /*background: #f4f4f4;*/
+  border: dashed 3px #5ff700;
+  border-radius: 10px;
+}
+
+.invisible {
+  display: none;
+}
 
 
 

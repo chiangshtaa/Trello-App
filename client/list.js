@@ -5,7 +5,8 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newCard: ''
+      newCard: '',
+      className: ''
     }
   }
 
@@ -24,51 +25,56 @@ class List extends React.Component {
     }
   }
 
-  handleTaskMoveForward(task, list) {
-    this.props.handleTaskMoveForward(task, list);
+  onDragOver(e) {
+    e.preventDefault();
+    // console.log('dragOver works');
+    let className = this.state.className;
+    className += ' hovered';
+    this.setState({
+      className: className
+    })
   }
 
-  handleTaskMoveBackward(task, list) {
-    this.props.handleTaskMoveBackward(task, list);
+  onDrop(e, list) {
+    console.log('drop works', list);
+    let taskName = e.dataTransfer.getData('taskName');
+    this.props.updateTasks(taskName, list);
+    this.setState({
+      className: ''
+    })
   }
 
-  handleListMoveForward(list) {
-    this.props.handleListMoveForward(list);
-  }
-
-  handleListMoveBackward(list) {
-    this.props.handleListMoveBackward(list);
+  onDragLeave(e) {
+    this.setState({
+      className: ''
+    })
   }
 
   render() {
     return (
       <div className='list-group'>
-        <div className='header'>{this.props.name}
-          <button
-            id='forwardButton'
-            onClick={(list) => this.handleListMoveForward(this.props.name)}
-          />
-          <button
-            id='backwardButton'
-            onClick={(list) => this.handleListMoveBackward(this.props.name)}
-          />
+        <div className='header'>
+          {this.props.name}
         </div>
-        {this.props.tasks.map((task, index) => {
-          return (
-            <Task 
-              task={task} 
-              key={index} 
-              handleTaskMoveForward={(task, list) => this.handleTaskMoveForward(task, this.props.name)}
-              handleTaskMoveBackward={(task, list) => this.handleTaskMoveBackward(task, this.props.name)}
-            />
-          )
-        })}
-        <input
-          id='addCard'
-          placeholder='Add a Card...'
-          value={this.state.newCard}
-          onChange={(event) => this.handleNewCard(event)}
-          onKeyPress={(event) => this.addCard(event)}/>
+        <div className={this.state.className}
+            onDragLeave={() => this.onDragLeave()}
+            onDragOver={(e) => this.onDragOver(e)}
+            onDrop={(e) => this.onDrop(e, this.props.name)}>
+          {this.props.tasks.map((task, index) => {
+            return (
+              <Task
+                task={task} 
+                key={index} 
+              />
+            )
+          })}
+          <input
+            id='addCard'
+            placeholder='Add a Card...'
+            value={this.state.newCard}
+            onChange={(event) => this.handleNewCard(event)}
+            onKeyPress={(event) => this.addCard(event)}/>
+        </div>
       </div>
     )
   }

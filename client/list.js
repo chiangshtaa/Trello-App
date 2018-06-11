@@ -5,7 +5,8 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newCard: ''
+      newCard: '',
+      className: ''
     }
   }
 
@@ -26,23 +27,27 @@ class List extends React.Component {
 
   onDragOver(e) {
     e.preventDefault();
-    console.log('dragOver works');
+    // console.log('dragOver works');
+    let className = this.state.className;
+    className += ' hovered';
+    this.setState({
+      className: className
+    })
   }
 
   onDrop(e, list) {
     console.log('drop works', list);
     let taskName = e.dataTransfer.getData('taskName');
     this.props.updateTasks(taskName, list);
-    // let tasks = this.state.tasks.filter((task) => {
-    //     if (task.name == id) {
-    //              task.category = cat;           
-    //     }              
-    //      return task;       
-    //  });        
-    //  this.setState({           
-    //     ...this.state,           
-    //     tasks       
-    //  });    
+    this.setState({
+      className: ''
+    })
+  }
+
+  onDragLeave(e) {
+    this.setState({
+      className: ''
+    })
   }
 
   render() {
@@ -51,7 +56,8 @@ class List extends React.Component {
         <div className='header'>
           {this.props.name}
         </div>
-        <div 
+        <div className={this.state.className}
+            onDragLeave={() => this.onDragLeave()}
             onDragOver={(e) => this.onDragOver(e)}
             onDrop={(e) => this.onDrop(e, this.props.name)}>
           {this.props.tasks.map((task, index) => {
